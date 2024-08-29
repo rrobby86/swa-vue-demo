@@ -1,5 +1,13 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from "./components/HelloWorld.vue";
+import { onMounted, ref } from "vue";
+
+const message = ref(null);
+
+onMounted(async () => {
+  const { text } = await (await fetch("/api/http_trigger")).json();
+  message.value = text;
+});
 </script>
 
 <template>
@@ -11,6 +19,7 @@ import HelloWorld from './components/HelloWorld.vue'
       <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>
   </div>
+  <div>{{ message }}</div>
   <HelloWorld msg="Vite + Vue" />
 </template>
 
